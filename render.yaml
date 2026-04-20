@@ -1,1 +1,9 @@
-
+services:
+  - type: worker               # Используем тип worker, т.к. бот не принимает внешние HTTP-запросы
+    name: osint-telegram-bot
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: BOT_TOKEN
+        sync: false            # Значение будет введено вручную на Render
+    plan: free
