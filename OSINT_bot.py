@@ -249,31 +249,12 @@ async def handle_query(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
 # --- Запуск бота ---
 def main() -> None:
-    """Запускает бота."""
-    # Создаем приложение
-    application = Application.builder().token(BOT_TOKEN).build()
+    # Запускаем фиктивный веб-сервер в фоновом потоке
+    threading.Thread(target=start_health_server, daemon=True).start()
 
-    # Создаем ConversationHandler
-    conv_handler = ConversationHandler(
-        entry_points=[CommandHandler("start", start)],
-        states={
-            CHOOSING_TOOL: [
-                MessageHandler(filters.Regex(r'^/\w+$'), tool_selected),
-            ],
-            TYPING_QUERY: [
-                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_query),
-            ],
-        },
-        fallbacks=[CommandHandler("cancel", cancel)],
-    )
-
-    application.add_handler(conv_handler)
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("list", list_tools))
+    # ... (остальной код настройки приложения)
     
-    # Запускаем бота
-    logger.info("Бот запущен. Нажмите Ctrl+C для остановки.")
+    logger.info("Бот запущен на Render")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
-
 if __name__ == "__main__":
     main()
