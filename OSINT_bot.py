@@ -48,12 +48,12 @@ ALLOWED_USERS = []  # Можно задать список ID пользоват
 CHOOSING_TOOL, TYPING_QUERY = range(2)
 
 # --- Утилиты OSINT ---
-OSINT_TOOLS: Dict[str, Dict[str, Any]] = {
-    "maigret": {
-        "name": "Maigret (поиск по никнейму)",
-        "command": "maigret",
-        "args": ["{query}"],
-        "description": "Ищет никнейм на 3000+ сайтах.",
+OSINT_TOOLS = {
+    "sherlock": {
+        "name": "Sherlock (поиск по никнейму)",
+        "command": "sherlock",
+        "args": ["{query}", "--timeout", "10"],
+        "description": "Ищет никнейм на 300+ социальных сетях.",
     },
     "holehe": {
         "name": "Holehe (проверка email)",
