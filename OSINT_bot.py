@@ -49,11 +49,11 @@ CHOOSING_TOOL, TYPING_QUERY = range(2)
 
 # --- Утилиты OSINT ---
 OSINT_TOOLS: Dict[str, Dict[str, Any]] = {
-    "sherlock": {
-        "name": "Sherlock (поиск по никнейму)",
-        "command": "sherlock",
-        "args": ["{query}", "--timeout", "10"],
-        "description": "Ищет никнейм на 300+ социальных сетях.",
+    "maigret": {
+        "name": "Maigret (поиск по никнейму)",
+        "command": "maigret",
+        "args": ["{query}"],
+        "description": "Ищет никнейм на 3000+ сайтах.",
     },
     "holehe": {
         "name": "Holehe (проверка email)",
@@ -66,12 +66,6 @@ OSINT_TOOLS: Dict[str, Dict[str, Any]] = {
         "command": "phoneinfoga",
         "args": ["scan", "-n", "{query}"],
         "description": "Собирает базовую информацию о телефонном номере.",
-    },
-    "blackbird": {
-        "name": "Blackbird (поиск по email/никнейму)",
-        "command": "blackbird",
-        "args": ["--username", "{query}"],
-        "description": "Ищет email или никнейм на 500+ сайтах.",
     },
     "ipinfo": {
         "name": "IPinfo (информация об IP)",
