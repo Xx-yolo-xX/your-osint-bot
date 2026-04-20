@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Установка системных утилит и очистка кэша apt
+# Системные зависимости
 RUN apt-get update && apt-get install -y curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -9,12 +9,17 @@ RUN curl -sSL https://github.com/sundowndev/phoneinfoga/releases/latest/download
 
 WORKDIR /app
 
-# Копируем зависимости и устанавливаем
+# Копируем и устанавливаем Python-зависимости
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем исходный код
+# Устанавливаем OSINT-утилиты как Python-пакеты
+RUN pip install --no-cache-dir sherlock-project holehe
+
+# blackbird может конфликтовать, поэтому заменяем на стабильный maigret
+RUN pip install --no-cache-dir maigret
+
+# Копируем код бота
 COPY OSINT_bot.py .
 
-# Запускаем бота
 CMD ["python", "OSINT_bot.py"]
