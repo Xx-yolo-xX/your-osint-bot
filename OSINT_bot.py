@@ -17,9 +17,15 @@ from telegram.ext import (
 class HealthCheckHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
         self.end_headers()
         self.wfile.write(b"Bot is running")
 
+    def do_HEAD(self):
+        # Отвечаем так же, как на GET, но без тела ответа
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
 def start_health_server(port=10000):
     server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
     server.serve_forever()
