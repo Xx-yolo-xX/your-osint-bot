@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Системные зависимости
+# Установка системных зависимостей (только curl)
 RUN apt-get update && apt-get install -y curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -13,11 +13,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Устанавливаем OSINT-утилиты как Python-пакеты
+# Устанавливаем OSINT-утилиты (чистый Python, без компиляции)
 RUN pip install --no-cache-dir sherlock-project holehe
-
-# blackbird может конфликтовать, поэтому заменяем на стабильный maigret
-RUN pip install --no-cache-dir maigret
 
 # Копируем код бота
 COPY OSINT_bot.py .
